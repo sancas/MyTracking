@@ -34,18 +34,37 @@ namespace MyTracking.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Rastrear(string txtTrackingNumber)
+        public ActionResult Rastrear(string txtTrackingNumber)
         {
             if (string.IsNullOrWhiteSpace(txtTrackingNumber))
             {
                 return RedirectToAction("Index");
             }
-            Arrive arrive = await db.Arrives.Where(v => v.Package.TrackingNo == txtTrackingNumber).FirstOrDefaultAsync();
-            if (arrive == null)
+            if (db.Packages.Where(v => v.TrackingNo == txtTrackingNumber).FirstOrDefault() == null)
             {
-                ViewBag.txtTrackingNumberMsj = "No se encontro el paquete";
                 return RedirectToAction("Index");
             }
+            IQueryable<Arrive> arrive = db.Arrives.Where(v => v.Package.TrackingNo == txtTrackingNumber).OrderByDescending(v => v.Date);
+            string json = "[";
+            int x = arrive.Count() - 1;
+            foreach (Arrive miArrive in arrive)
+            {
+                if (json != "[")
+                    json += ",";
+                else if (ViewBag.GeoLat == null)
+                {
+                    ViewBag.GeoLat = miArrive.Location.Latitude;
+                    ViewBag.GeoLong = miArrive.Location.Longitude;
+                    ViewBag.Placename = arrive.Count().ToString() + ". Actualmente en: " + miArrive.Name + " Fecha que llego: " + miArrive.Date.ToShortDateString();
+                    continue;
+                }
+                json += "{'Id':"+miArrive.Id+", 'PlaceName': '"+ x.ToString() + ". "+miArrive.Name+" Fecha que llego: "+miArrive.Date.ToShortDateString()+"','GeoLong': "+miArrive.Location.Latitude.ToString()+", 'GeoLat': "+miArrive.Location.Longitude.ToString()+"}";
+                x--;
+            }
+            json += "]";
+            ViewBag.DestGeoLat = db.Packages.Where(v => v.TrackingNo == txtTrackingNumber).FirstOrDefault().Destination.Latitude;
+            ViewBag.DestGeoLong = db.Packages.Where(v => v.TrackingNo == txtTrackingNumber).FirstOrDefault().Destination.Longitude;
+            ViewBag.Data = json;
             return View(arrive);
         }
     }

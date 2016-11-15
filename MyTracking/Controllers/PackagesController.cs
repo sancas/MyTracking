@@ -11,6 +11,7 @@ using MyTracking.Models;
 
 namespace MyTracking.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class PackagesController : Controller
     {
         private Tracking db = new Tracking();

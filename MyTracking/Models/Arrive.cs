@@ -13,7 +13,12 @@ namespace MyTracking.Models
 
         [Required]
         [Display(Name = "Fecha llegada")]
+        [DataType(DataType.Date)]
         public DateTime Date { get; set; }
+
+        [Required]
+        [Display(Name = "Nombre Lugar")]
+        public string Name { get; set; }
 
         [Required]
         [Display(Name = "Lugar de llegada")]

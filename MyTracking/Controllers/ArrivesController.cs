@@ -11,6 +11,7 @@ using MyTracking.Models;
 
 namespace MyTracking.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class ArrivesController : Controller
     {
         private Tracking db = new Tracking();
@@ -49,7 +50,7 @@ namespace MyTracking.Controllers
         // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "Id,Date,Location,IdPackage")] Arrive arrive)
+        public async Task<ActionResult> Create([Bind(Include = "Id,Date,Name,Location,IdPackage")] Arrive arrive)
         {
             if (ModelState.IsValid)
             {
@@ -83,7 +84,7 @@ namespace MyTracking.Controllers
         // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Id,Date,Location,IdPackage")] Arrive arrive)
+        public async Task<ActionResult> Edit([Bind(Include = "Id,Date,Name,Location,IdPackage")] Arrive arrive)
         {
             if (ModelState.IsValid)
             {
