@@ -262,6 +262,7 @@
     <Content Include="Views\Arrives\Index.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\DbGeography.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\DbGeography.cshtml" />
+    <Content Include="Views\Home\Rastrear.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -8,7 +8,6 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using MyTracking.Models;
-using System.Data.Entity.Spatial;
 
 namespace MyTracking.Controllers
 {
