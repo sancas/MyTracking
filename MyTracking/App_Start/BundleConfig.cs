@@ -26,6 +26,7 @@ namespace MyTracking
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap-theme.css",
                       "~/Content/site.css"));
+
         }
     }
 }

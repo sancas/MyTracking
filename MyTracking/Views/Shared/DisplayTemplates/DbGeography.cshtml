@@ -1,0 +1,11 @@
+﻿@model System.Data.Entity.Spatial.DbGeography
+@using System.Globalization
+@if (Model != null)
+{
+    @Html.Hidden("", Model.Latitude.Value.ToString("G", CultureInfo.InvariantCulture) + "," + Model.Longitude.Value.ToString("G", CultureInfo.InvariantCulture), new { @class = "display-for-dbgeography ", disabled = true })
+}
+else
+{
+    @Html.TextBox("", "", new { @class = "form-control text-box single-line", @readonly = true })
+}
+<br />
