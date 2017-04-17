@@ -18,7 +18,7 @@ namespace MyTracking.Models
         public int Id { get; set; }
 
         [Required]
-        [StringLength(10)]
+        [StringLength(10, MinimumLength = 10, ErrorMessage = "El Numero de seguimiento debe tener 10 caracteres")]
         [Index("TrackingNoIndex", IsUnique = true)]
         [Display(Name = "Numero de seguimiento")]
         public string TrackingNo { get; set; }
